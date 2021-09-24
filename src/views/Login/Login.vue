@@ -3,14 +3,14 @@
 		<h2>登录</h2>
 		<el-form ref="form" :model="form" :rules="rules">
 			<el-form-item class="user" label="账号" prop="name">
-				<el-input v-model="form.name" placeholder="请输入账号..."></el-input>
+				<el-input v-model="form.userName" placeholder="请输入账号..."></el-input>
 			</el-form-item>
 			<el-form-item class="password" label="密码" prop="password">
-				<el-input v-model="form.password" placeholder="请输入密码..."></el-input>
+				<el-input v-model="form.userPassword" placeholder="请输入密码..."></el-input>
 			</el-form-item>
 			<el-form-item class="btn">
-				<el-button class="submit-btn" type="primary" round @click="onSubmit('form')">登录</el-button>
-				<el-button class="register-btn" type="primary" round plain @click="onRegister">注册</el-button>
+				<el-button class="submit-btn" type="primary" round @click="onSignIn('form')">登录</el-button>
+				<el-button class="register-btn" type="primary" round plain @click="onSignUp">注册</el-button>
 			</el-form-item>
 		</el-form>
 	</div>
@@ -22,15 +22,15 @@
 		data() {
 			return {
 				form: {
-					name: '',
-					password: '',
+					userName: '',
+					userPassword: '',
 				},
 				rules: {
-					name: [
+					userName: [
 						{ required: true, message: '请输入用户名', trigger: 'blur' },
 						{ min: 3, max: 12, message: '长度在 3 到 12 个字符', trigger: 'blur' },
 					],
-					password: [
+					userPassword: [
 						{ required: true, message: '请输入密码', trigger: 'blur' },
 						{ min: 6, max: 30, message: '长度在 6 到 30 个字符', trigger: 'blur' },
 					],
@@ -39,10 +39,11 @@
 		},
 
 		methods: {
-			onSubmit(formName) {
+			onSignIn(formName) {
 				this.$refs[formName].validate((valid) => {
 					if (valid) {
-						this.$router.push('/main');
+						// this.$router.push('/home');
+						this.$router.push({ name: 'Home', params: { user: this.form.userName } });
 					} else {
 						this.$message({
 							message: '用户名或密码错误！',
@@ -51,6 +52,9 @@
 						return false;
 					}
 				});
+			},
+			onSignUp() {
+				console.log('register');
 			},
 		},
 	};

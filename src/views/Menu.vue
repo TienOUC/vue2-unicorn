@@ -4,7 +4,7 @@
 
 <script>
 	export default {
-    name: 'Main',
+    name: 'Menu',
 		components: {},
 		props: {},
 		data() {
