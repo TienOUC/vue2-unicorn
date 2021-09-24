@@ -1,24 +1,34 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import Home from '../views/Home.vue';
+import Login from '@/views/Login.vue';
 
 Vue.use(VueRouter);
 
 const routes = [
+	// {
+	// 	path: '/:catchAll(.*)',
+	// 	name: '/404',
+	// 	component: () => import('@/views/404.vue'),
+	// },
 	{
 		path: '/',
+		name: 'Login',
+		component: Login,
+	},
+	{
+		path: '/home',
 		name: 'Home',
-		component: Home,
+		component: () => import('@/views/Home.vue'),
 	},
 	{
 		path: '/about',
 		name: 'About',
-		component: () => import('../views/About.vue'),
+		component: () => import('@/views/About.vue'),
 	},
 	{
-		path: '/login',
-		name: 'Login',
-		component: () => import('../views/Login.vue'),
+		path: '/main',
+		name: 'Main',
+		component: () => import('@/views/Main.vue'),
 	},
 ];
 
