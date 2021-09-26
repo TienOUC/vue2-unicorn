@@ -4,6 +4,20 @@
 	</div>
 </template>
 
+<script>
+	export default {
+		name: 'APP',
+		created() {
+			window.addEventListener('load', this.saveState());
+		},
+
+		methods: {
+			saveState() {
+				window.sessionStorage.setItem('state', JSON.stringify(this.$store.state));
+			},
+		},
+	};
+</script>
 <style lang="scss">
 	html,
 	body,

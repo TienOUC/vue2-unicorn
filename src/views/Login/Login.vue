@@ -9,8 +9,8 @@
 				<el-input v-model="form.userPassword" placeholder="请输入密码..."></el-input>
 			</el-form-item>
 			<el-form-item class="btn">
-				<el-button class="submit-btn" type="primary" round @click="onSignIn('form')">登录</el-button>
-				<el-button class="register-btn" type="primary" round plain @click="onSignUp">注册</el-button>
+				<el-button class="submit-btn" type="primary" round @click="onLogin('form')">登录</el-button>
+				<el-button class="register-btn" type="primary" round plain @click="onRegister">注册</el-button>
 			</el-form-item>
 		</el-form>
 	</div>
@@ -21,10 +21,12 @@
 		name: 'Login',
 		data() {
 			return {
+				// isLogin: false,
 				form: {
 					userName: '',
 					userPassword: '',
 				},
+				//登录校验规则
 				rules: {
 					userName: [
 						{ required: true, message: '请输入用户名', trigger: 'blur' },
@@ -39,11 +41,16 @@
 		},
 
 		methods: {
-			onSignIn(formName) {
+			// 登录
+			onLogin(formName) {
 				this.$refs[formName].validate((valid) => {
 					if (valid) {
-						// this.$router.push('/home');
-						this.$router.push({ name: 'Home', params: { user: this.form.userName } });
+						//更改 $store.state 状态
+						this.$store.dispatch('asyncUpdateUserInfo', { name: this.form.userName, isLogin: true });
+						//存储 $store.state 到 sessionStorage
+						sessionStorage.setItem('state', JSON.stringify(this.$store.state));
+						//跳转到 /home 路由
+						this.$router.push({ name: 'Home', params: { name: this.form.userName } });
 					} else {
 						this.$message({
 							message: '用户名或密码错误！',
@@ -53,7 +60,9 @@
 					}
 				});
 			},
-			onSignUp() {
+
+			//注册
+			onRegister() {
 				console.log('register');
 			},
 		},

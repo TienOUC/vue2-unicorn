@@ -5,19 +5,28 @@ import Login from '@/views/Login/Login.vue';
 Vue.use(VueRouter);
 
 const routes = [
-	// {
-	// 	path: '/:catchAll(.*)',
-	// 	name: '/404',
-	// 	component: () => import('@/views/404.vue'),
-	// },
+	//404
 	{
-		path: '/',
+		path: '*',
+		name: 'NotFound',
+		component: () => import('@/views/NotFound/NotFound.vue'),
+	},
+	//退出
+	{
+		path: '/logout',
+		redirect: '/login',
+	},
+	//登录
+	{
+		path: '/login',
 		name: 'Login',
 		component: Login,
 	},
+	// 主页
 	{
 		path: '/home',
 		name: 'Home',
+		meta: { requireAuth: true },
 		component: () => import('@/views/Home/Home.vue'),
 		children: [
 			{
@@ -37,7 +46,7 @@ const routes = [
 			},
 			{
 				path: '/goods/cat-toys',
-				name: 'Toys',
+				name: 'CatToys',
 				component: () => import('@/views/Goods/CatToys.vue'),
 			},
 			{

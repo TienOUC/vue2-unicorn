@@ -5,16 +5,32 @@
 <script>
 	export default {
 		name: 'CatFoods',
-		components: {},
-		props: {},
 		data() {
 			return {};
 		},
-		watch: {},
-		computed: {},
-		methods: {},
-		created() {},
-		mounted() {},
+		beforeRouteEnter: (to, from, next) => {
+			console.log('enter');
+			next((vm) => vm.getCatFoodsData());
+		},
+
+		beforeRouteLeave: (to, from, next) => {
+			console.log('leave');
+			next((vm) => {});
+		},
+		methods: {
+			getCatFoodsData: function() {
+				this.axios({
+					method: 'get',
+					url: 'https://jsonplaceholder.typicode.com/users',
+				})
+					.then((response) => {
+						console.log(response.data);
+					})
+					.catch((err) => {
+						throw new Error('err');
+					});
+			},
+		},
 	};
 </script>
 

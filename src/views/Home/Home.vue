@@ -1,5 +1,6 @@
 <template>
 	<div class="home">
+		<button @click="onLogout">退出</button>
 		<el-container>
 			<!-- 左侧侧边栏 -->
 			<el-aside>
@@ -8,11 +9,22 @@
 					<el-submenu index="1">
 						<template slot="title"><i class="el-icon-menu"></i>商品管理</template>
 						<el-menu-item-group>
-							<el-menu-item index="1-1"><router-link to="/goods/cat-foods">主粮</router-link></el-menu-item>
-							<el-menu-item index="1-2"><router-link to="/goods/cat-snacks">零食</router-link></el-menu-item>
-							<el-menu-item index="1-3"><router-link to="/goods/cat-toys">玩具</router-link></el-menu-item>
-							<el-menu-item index="1-4"><router-link to="/goods/cat-litter">猫砂</router-link></el-menu-item>
-							<el-menu-item index="1-5"><router-link to="/goods/cleaning-products">清洁</router-link></el-menu-item>
+							<!-- <el-menu-item index="1-1"><router-link to="/goods/cat-foods">主粮</router-link></el-menu-item> -->
+							<el-menu-item index="1-1">
+								<router-link :to="{ name: 'CatFoods' }">主粮</router-link>
+							</el-menu-item>
+							<el-menu-item index="1-2">
+								<router-link :to="{ name: 'CatSnacks' }">零食</router-link>
+							</el-menu-item>
+							<el-menu-item index="1-3">
+								<router-link :to="{ name: 'CatToys' }">玩具</router-link>
+							</el-menu-item>
+							<el-menu-item index="1-4">
+								<router-link :to="{ name: 'CatLitter' }">猫砂</router-link>
+							</el-menu-item>
+							<el-menu-item index="1-5">
+								<router-link :to="{ name: 'CleaningProducts' }">清洁</router-link>
+							</el-menu-item>
 						</el-menu-item-group>
 					</el-submenu>
 					<!-- 数据统计 -->
@@ -36,15 +48,15 @@
 			<!-- 右侧内容 -->
 			<el-container>
 				<el-header style="text-align: right; font-size: 12px">
-					<span>{{ $route.params.user }}</span>
 					<el-dropdown>
-						<i class="el-icon-user-solid" style="margin-left: 15px; cursor: pointer;"></i>
+						<i class="el-icon-user-solid" style="margin-right: 10px; cursor: pointer;"></i>
 						<el-dropdown-menu slot="dropdown">
 							<el-dropdown-item>用户信息</el-dropdown-item>
 							<el-dropdown-item>修改资料</el-dropdown-item>
 							<el-dropdown-item>退出</el-dropdown-item>
 						</el-dropdown-menu>
 					</el-dropdown>
+					<span>{{ $store.getters.getUserInfo.name }}</span>
 				</el-header>
 
 				<el-main>
@@ -60,9 +72,12 @@
 		name: 'Home',
 		components: {},
 		methods: {
-			// displayUser() {
-			// 	console.log($router.params);
-			// },
+			onLogout() {
+				// sessionStorage.removeItem('state')
+				// sessionStorage.removeItem('isLogin')
+				sessionStorage.clear();
+				this.$router.push({ name: 'Login' });
+			},
 		},
 	};
 </script>
