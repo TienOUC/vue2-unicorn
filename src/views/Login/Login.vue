@@ -48,21 +48,6 @@
 			// 用户登录
 			userLogin(formName) {
 				this.$refs[formName].validate((valid) => {
-					// if (valid) {
-					// 	//更改 $store.state 状态
-					// 	this.$store.dispatch('asyncUpdateUserInfo', { name: this.form.userName, isLogin: true });
-					// 	//存储 $store.state 到 sessionStorage
-					// 	sessionStorage.setItem('state', JSON.stringify(this.$store.state.user));
-					// 	//跳转到 /home 路由
-					// 	this.$router.push({ name: 'Home', params: { name: this.form.userName } });
-					// } else {
-					// 	this.$message({
-					// 		message: '用户名或密码错误！',
-					// 		center: true,
-					// 	});
-					// 	return false;
-					// }
-
 					if (valid) {
 						axios({
 							method: 'post',
@@ -78,7 +63,13 @@
 										this.msgInfo('用户不存在！', 'warning');
 										break;
 									case 0:
-										this.msgInfo('登录成功！', 'success');
+										// this.msgInfo('登录成功！', 'success');
+										//更改 $store.state 状态
+										this.$store.dispatch('asyncUpdateUserInfo', { name: this.form.userName, isLogin: true });
+										//存储 $store.state 到 sessionStorage
+										sessionStorage.setItem('state', JSON.stringify(this.$store.state.user));
+										//跳转到 /home 路由
+										this.$router.push({ name: 'Home', params: { name: this.form.userName } });
 										break;
 									case 1:
 										this.msgInfo('密码不正确！', 'error');
