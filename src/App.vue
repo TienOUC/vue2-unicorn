@@ -8,12 +8,12 @@
 	export default {
 		name: 'APP',
 		created() {
-			window.addEventListener('load', this.saveState());
+			window.addEventListener('load', this.saveUserState());
 		},
 
 		methods: {
-			saveState() {
-				window.sessionStorage.setItem('state', JSON.stringify(this.$store.state));
+			saveUserState() {
+				window.sessionStorage.setItem('state', JSON.stringify(this.$store.state.user));
 			},
 		},
 	};
